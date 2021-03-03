@@ -70,8 +70,6 @@ function getMostPopularBooks(books) {
 }
 
 function getMostPopularAuthors(books, authors) {
-  
-
   // Helper function to find total number of borrows by author //
   function borrowNumber(author) {
     return books.reduce((acc, book) => {
@@ -94,8 +92,6 @@ function getMostPopularAuthors(books, authors) {
   const authorArray = books.reduce((acc, book) => {
     // Deconstruct authorId from book //
     const { authorId } = book;
-    // Filter for all books by author //
-    const booksByAuthor = books.filter((book) => book.authorID === authorId);
     // Run helper script to get total borrows of author //
     const count = borrowNumber(authorId);
     // Find author //
@@ -113,6 +109,7 @@ function getMostPopularAuthors(books, authors) {
     counter++;
     return acc;
   }, []);
+
   // Sort array by total borrows //
   const result = authorArray.sort((authorA, authorB) =>
     authorA.count > authorB.count ? -1 : 1

@@ -24,31 +24,31 @@ function partitionBooksByBorrowedStatus(books) {
   return [checkedOut, returned];
 }
 
+// Helper function for getBorrowersForBook to append borrow information //
+function appendBorrow(borrow, accounts) {
+  // Deconstruct borrower information //
+  const { picture, age, name, company, email, registered } = accounts.find(
+    (account) => borrow.id === account.id
+  );
+  // Create new entry //
+  const newBorrow = {
+    ...borrow,
+    picture: picture,
+    age: age,
+    name: name,
+    company: company,
+    email: email,
+    registered: registered,
+  };
+  return newBorrow;
+}
+
 function getBorrowersForBook(book, accounts) {
   // Deconstruct borrow list from book //
   const { borrows } = book;
 
   // Append borrower information to borrow list //
-  const result = borrows.map((borrow) => appendBorrow(borrow));
-
-  // Helper function to append borrow information //
-  function appendBorrow(borrow) {
-    // Deconstruct borrower information //
-    const { picture, age, name, company, email, registered } = accounts.find(
-      (account) => borrow.id === account.id
-    );
-    // Create new entry //
-    const newBorrow = {
-      ...borrow,
-      picture: picture,
-      age: age,
-      name: name,
-      company: company,
-      email: email,
-      registered: registered,
-    };
-    return newBorrow;
-  }
+  const result = borrows.map((borrow) => appendBorrow(borrow, accounts));
 
   // Remove entries in array past 5 elements //
   while (result.length > 10) {
