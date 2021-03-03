@@ -26,19 +26,19 @@ function partitionBooksByBorrowedStatus(books) {
 
 // Helper function for getBorrowersForBook to append borrow information //
 function appendBorrow(borrow, accounts) {
-  // Deconstruct borrower information //
-  const { picture, age, name, company, email, registered } = accounts.find(
+  // Find user account //
+  const user = accounts.find(
     (account) => borrow.id === account.id
   );
   // Create new entry //
   const newBorrow = {
     ...borrow,
-    picture: picture,
-    age: age,
-    name: name,
-    company: company,
-    email: email,
-    registered: registered,
+    picture: user.picture,
+    age: user.age,
+    name: user.name,
+    company: user.company,
+    email: user.email,
+    registered: user.registered,
   };
   return newBorrow;
 }
@@ -48,13 +48,12 @@ function getBorrowersForBook(book, accounts) {
   const { borrows } = book;
 
   // Append borrower information to borrow list //
-  const result = borrows.map((borrow) => appendBorrow(borrow, accounts));
+  let result = borrows.map((borrow) => appendBorrow(borrow, accounts));
 
-  // Remove entries in array past 5 elements //
-  while (result.length > 10) {
-    result.pop();
-  }
-  return result;
+  // Remove entries in array past 10 elements //
+  result.length = 10;
+ 
+  return result; 
 }
 
 module.exports = {

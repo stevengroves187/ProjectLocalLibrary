@@ -65,7 +65,7 @@ function getMostPopularBooks(books) {
     popularA.count > popularB.count ? -1 : 1
   );
   // Remove entries from array past 5 elements //
-  while (result.length > 5) result.pop();
+  result.length = 5;
   return result;
 }
 
@@ -115,7 +115,7 @@ function getMostPopularAuthors(books, authors) {
     authorA.count > authorB.count ? -1 : 1
   );
   // Remove array elements past 5 entries
-  while (result.length > 5) result.pop();
+  result.length = 5;
   return result;
 }
 
