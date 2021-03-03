@@ -38,7 +38,7 @@ function getBorrowersForBook(book, accounts) {
       (account) => borrow.id === account.id
     );
     // Create new entry //
-    let newBorrow = {
+    const newBorrow = {
       ...borrow,
       picture: picture,
       age: age,
